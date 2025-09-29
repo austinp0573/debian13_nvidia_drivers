@@ -27,3 +27,7 @@ sudo chmod +x debian13_nvidia_drivers
 ```bash
 ./debian13_nvidia_drivers
 ```
+
+&nbsp;
+
+**466f724a616e6574**

@@ -3,20 +3,26 @@
 # exit on non 0 status code
 set -e
 
+# an nvidia GPU is going to be crucial
+if ! lspci | grep -i nvidia > /dev/null; then
+    echo "ERROR: No NVIDIA GPU detected."
+    exit 1
+fi
+
 # prompt for sudo password
 sudo -v
 
 # best practice is everything shouldn't have root priviledges
 # this ensures sudo is kept alive until the script is done
 cleanup() {
-    # Kill the background sudo keep-alive process
+    # kill the background sudo keep-alive process
     if [[ -n "$sudo_pid" ]]; then
         kill "$sudo_pid" 2>/dev/null || true
     fi
 }
 trap cleanup EXIT
 
-# Start sudo keep-alive in background
+# start sudo keep-alive in background
 while true; do 
     sudo -n true 2>/dev/null
     sleep 60
@@ -26,7 +32,10 @@ sudo_pid=$!
 
 # need "contrib" and "non-free" in sources.list
 echo "adding contrib and non-free to sources.list"
-sudo sed -i 's/ main$/ main contrib non-free/' /etc/apt/sources.list
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
+if ! grep -q "contrib" /etc/apt/sources.list; then
+    sudo sed -i '/^deb.*main$/s/main/main contrib non-free/' /etc/apt/sources.list
+fi
 echo "contrib and non-free successfully added"
 
 # install linux-headers

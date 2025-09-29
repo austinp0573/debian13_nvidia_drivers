@@ -7,3 +7,23 @@
 
 ## Use
 1. clone repo or wget
+
+ ```bash
+ git clone https://github.com/austinp0573/debian13_nvidia_drivers.git
+ ```
+
+ ```bash
+ wget https://raw.githubusercontent.com/austinp0573/debian13_nvidia_drivers/main/debian13_nvidia_drivers.sh
+ ```
+
+2. change permissions
+
+```bash
+sudo chmod +x debian13_nvidia_drivers
+```
+
+3. run it
+
+```bash
+./debian13_nvidia_drivers
+```

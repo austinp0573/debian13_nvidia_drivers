@@ -14,7 +14,7 @@
 sudo wget -O - https://raw.githubusercontent.com/austinp0573/debian13_nvidia_drivers/main/debian13_nvidia_drivers.sh | bash
 ```
 
-2. clone repo or wget
+2. you can also clone the repo or manually use wget
 
  ```bash
  git clone https://github.com/austinp0573/debian13_nvidia_drivers.git

@@ -6,7 +6,15 @@
 -- this does install the debian12 version, I have run it like this since shortly after trixie was released without issue, however since this is technically the debian12 driver it could break something in someway, if you make money with the computer in question, you probably shouldn't do this
 
 ## Use
-1. clone repo or wget
+
+1. quick use
+- copy and paste this in the terminal, press enter, enjoy
+
+```bash
+sudo wget -O - https://raw.githubusercontent.com/austinp0573/debian13_nvidia_drivers/main/debian13_nvidia_drivers.sh | bash
+```
+
+2. clone repo or wget
 
  ```bash
  git clone https://github.com/austinp0573/debian13_nvidia_drivers.git
@@ -16,13 +24,13 @@
  wget https://raw.githubusercontent.com/austinp0573/debian13_nvidia_drivers/main/debian13_nvidia_drivers.sh
  ```
 
-2. change permissions
+3. change permissions
 
 ```bash
 sudo chmod +x debian13_nvidia_drivers
 ```
 
-3. run it
+4. run it
 
 ```bash
 ./debian13_nvidia_drivers

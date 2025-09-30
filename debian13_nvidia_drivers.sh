@@ -59,24 +59,25 @@ sudo dpkg -i cuda-keyring_1.1-1_all.deb
 echo "sudo apt updating"
 sudo apt update
 echo "Choose installation type:"
-echo "1) Desktop system (full drivers)"
+echo "1) Full CUDA toolkit and drivers"
 echo "2) Server/compute only (CUDA drivers only)"
-echo "3) Full CUDA toolkit and drivers"
+echo "3) Desktop system (full drivers)"
 read -p "Enter choice (1-3): " choice
 
 case $choice in
     1)
-        echo "Installing desktop drivers..."
-        sudo apt -V install nvidia-driver nvidia-kernel-dkms -y
+        echo "Installing full CUDA drivers..."
+        sudo apt -V install cuda-drivers -y
         ;;
+        
     2)
         echo "Installing compute-only drivers..."
         sudo apt -V install nvidia-driver-cuda nvidia-kernel-dkms -y
         ;;
     3)
-        echo "Installing full CUDA drivers..."
-        sudo apt -V install cuda-drivers -y
-        ;;
+      echo "Installing desktop drivers..."
+        sudo apt -V install nvidia-driver nvidia-kernel-dkms -y
+        ;;  
     *)
         echo "Invalid choice. Defaulting to desktop drivers."
         sudo apt -V install nvidia-driver nvidia-kernel-dkms -y

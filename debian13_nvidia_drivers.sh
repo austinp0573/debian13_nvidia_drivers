@@ -32,15 +32,18 @@ sudo_pid=$!
 
 # need "contrib" and "non-free" in sources.list
 echo "adding contrib and non-free to sources.list"
+
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
+
 if ! grep -q "contrib" /etc/apt/sources.list; then
-    sudo sed -i '/^deb.*main$/s/main/main contrib non-free/' /etc/apt/sources.list
+    sudo sed -i 's/\(deb.*main\) /\1 contrib non-free /' /etc/apt/sources.list
 fi
+
 echo "contrib and non-free successfully added"
 
 # install linux-headers
 echo "installing linux-headers"
-sudo apt install linux-headers-$(uname -r)
+sudo apt install linux-headers-$(uname -r) -y
 echo "linux headers installed"
 
 # needs to send the wget command with $distro as debian12
@@ -59,7 +62,7 @@ sudo dpkg -i cuda-keyring_1.1-1_all.deb
 echo "sudo apt updating"
 sudo apt update
 echo "Choose installation type:"
-echo "1) Full CUDA toolkit and drivers"
+echo "1) Full CUDA drivers"
 echo "2) Server/compute only (CUDA drivers only)"
 echo "3) Desktop system (full drivers)"
 read -p "Enter choice (1-3): " choice
@@ -92,10 +95,10 @@ echo ""
 read -p "Reboot now? (y/N): " reboot_choice
 
 if [[ "$reboot_choice" =~ ^[Yy]$ ]]; then
-    echo "Rebooting in 5 seconds... (Ctrl+C to cancel)"
+    echo "rebooting in 5 seconds (Ctrl+C to cancel)"
     sleep 5
     sudo reboot
 else
-    echo "Please reboot manually when convenient."
-    echo "Run 'sudo reboot' or restart your system."
+    echo "reboot manually to complete the process"
+    echo "run 'sudo reboot' or restart your system."
 fi

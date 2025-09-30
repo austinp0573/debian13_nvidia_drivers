@@ -28,6 +28,12 @@ sudo chmod +x debian13_nvidia_drivers
 ./debian13_nvidia_drivers
 ```
 
+## Tested & Working
+- at least as of this moment, it works
+- I use proprietary drivers and I do lots of fresh debian installs, so I will update this if that changes
+
+![nvidia-smi terminal output](./nvidia-smi.png)
+
 &nbsp;
 
 **466f724a616e6574**

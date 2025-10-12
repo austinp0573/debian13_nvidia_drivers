@@ -33,11 +33,11 @@ sudo_pid=$!
 # need "contrib" and "non-free" in sources.list
 echo "adding contrib and non-free to sources.list"
 
+echo "backing up current sources.list to sources.list.backup"
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
 
-if ! grep -q "contrib" /etc/apt/sources.list; then
-    sudo sed -i 's/\(deb.*main\) /\1 contrib non-free /' /etc/apt/sources.list
-fi
+echo "overwriting old sources.list with new one containing contrib and non-free"
+sudo cp "$(dirname "$0")/sources.list" /etc/apt/sources.list
 
 echo "contrib and non-free successfully added"
 
@@ -82,8 +82,8 @@ case $choice in
         sudo apt -V install nvidia-driver nvidia-kernel-dkms -y
         ;;  
     *)
-        echo "Invalid choice. Defaulting to desktop drivers."
-        sudo apt -V install nvidia-driver nvidia-kernel-dkms -y
+        echo "Invalid choice. Defaulting to full CUDA drivers."
+        sudo apt -V install cuda-drivers -y
         ;;
 esac
 

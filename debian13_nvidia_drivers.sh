@@ -30,16 +30,11 @@ while true; do
 done &
 sudo_pid=$!
 
-# need "contrib" and "non-free" in sources.list
-echo "adding contrib and non-free to sources.list"
-
+# Replace sources.list with a known working version
+echo "Backing up and replacing /etc/apt/sources.list"
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
-
-if ! grep -q "contrib" /etc/apt/sources.list; then
-    sudo sed -i 's/\(deb.*main\) /\1 contrib non-free /' /etc/apt/sources.list
-fi
-
-echo "contrib and non-free successfully added"
+sudo cp "$(dirname "$0")/sources.list.debian13" /etc/apt/sources.list
+echo "sources.list updated"
 
 # install linux-headers
 echo "installing linux-headers"
@@ -61,6 +56,12 @@ echo "dpkg keyring.deb"
 sudo dpkg -i cuda-keyring_1.1-1_all.deb
 echo "sudo apt updating"
 sudo apt update
+
+# 590 drivers broke things
+echo "pinning to 580 drivers, 590 drivers resulted in meaningful issues"
+sudo apt install nvidia-driver-pinning-580 -y
+
+
 echo "Choose installation type:"
 echo "1) Full CUDA drivers"
 echo "2) Server/compute only (CUDA drivers only)"
@@ -83,7 +84,7 @@ case $choice in
         ;;  
     *)
         echo "Invalid choice. Defaulting to desktop drivers."
-        sudo apt -V install nvidia-driver nvidia-kernel-dkms -y
+        sudo apt -V install cuda-drivers -y
         ;;
 esac
 
